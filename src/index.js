@@ -9,32 +9,7 @@ dotenv.config();
 const PORT = process.env.PORT || 4000;
 let users = [];
 
-// Handle GET requests
-const handleGetUsers = (res) => {
-    sendJsonResponse(res, 200, users);
-};
-
-const handleGetUserById = (res, userId) => {
-    if (!userId || !uuidv4.validate(userId)) {
-        return sendJsonResponse(res, 400, { message: 'Invalid userId' });
-    }
-    const user = users.find((u) => u.id === userId);
-    if (!user) {
-        return sendJsonResponse(res, 404, { message: 'User not found' });
-    }
-    sendJsonResponse(res, 200, user);
-};
-
-// Handle POST requests
-const handleCreateUser = (res, body) => {
-    const { username, age, hobbies } = JSON.parse(body);
-    if (!username || !age || !Array.isArray(hobbies)) {
-        return sendJsonResponse(res, 400, { message: 'Missing required fields' });
-    }
-    const newUser = { id: uuidv4(), username, age, hobbies };
-    users.push(newUser);
-    sendJsonResponse(res, 201, newUser);
-};
+// Handle POST reque
 
 // Handle PUT requests
 const handleUpdateUser = (res, userId, body) => {
